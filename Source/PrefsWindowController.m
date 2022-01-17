@@ -260,7 +260,11 @@
 	[prefsToolbar setAutosavesConfiguration:NO];
     [prefsToolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
 	[prefsWindow setToolbar:prefsToolbar];
-
+    if (@available(macOS 11.0, *)) {
+        [prefsWindow setToolbarStyle: NSWindowToolbarStyleExpanded ];
+    } else {
+        // Fallback on earlier versions
+    }
 	currentPrefsGroup = nil;
 	[self switchToView:@"General"];
 
@@ -483,7 +487,8 @@ static NSString * const sizeParamPrefix = @"NSView Size Preferences/";
     
 	NSView *blankPrefsView = [[NSView alloc] init];
 	[prefsWindow setContentView:blankPrefsView];
-	[prefsWindow setTitle:[@"ControlPlane - " stringByAppendingString:group[@"display_name"]]];
+    //Set Window Title
+	[prefsWindow setTitle:[@"" stringByAppendingString:group[@"display_name"]]];
     
 	BOOL resizeableWidth  = [group[@"resizeableWidth"]  boolValue];
     BOOL resizeableHeight = [group[@"resizeableHeight"] boolValue];
@@ -704,7 +709,7 @@ static NSString * const sizeParamPrefix = @"NSView Size Preferences/";
 		NSOpenPanel *panel = [NSOpenPanel openPanel];
 		[panel setAllowsMultipleSelection:NO];
 		[panel setCanChooseDirectories:NO];
-		if ([panel runModal] != NSOKButton)
+        if ([panel runModal] != NSModalResponseOK)
 			return;
 		NSString *filename = [[panel URL] path];
 		Action *action = [[klass alloc] initWithFile:filename];

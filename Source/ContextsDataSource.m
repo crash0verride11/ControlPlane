@@ -373,14 +373,14 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 // Triggered by OK button
 - (IBAction)newContextSheetAccepted:(id)sender {
 	NSPanel *strongNewContextSheet = newContextSheet;
-    [NSApp endSheet:strongNewContextSheet returnCode:NSOKButton];
+    [NSApp endSheet:strongNewContextSheet returnCode:NSModalResponseOK];
 	[strongNewContextSheet orderOut:nil];
 }
 
 // Triggered by cancel button
 - (IBAction)newContextSheetRejected:(id)sender {
 	NSPanel *strongNewContextSheet = newContextSheet;
-	[NSApp endSheet:strongNewContextSheet returnCode:NSCancelButton];
+    [NSApp endSheet:strongNewContextSheet returnCode:NSModalResponseCancel];
 	[strongNewContextSheet orderOut:nil];
 }
 
@@ -392,7 +392,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"iconColorPreviewFinished" object:nil];
     }
     
-	if (returnCode != NSOKButton) {
+    if (returnCode != NSModalResponseOK) {
 		return;
     }
     
@@ -534,7 +534,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
 	if ([[self childrenOfContext:[ctxt uuid]] count] > 0) {
 		// Warn about destroying child contexts
 		NSAlert *alert = [[NSAlert alloc] init];
-		[alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
 		[alert setMessageText:NSLocalizedString(@"Removing this context will also remove its child contexts!", "")];
 		[alert setInformativeText:NSLocalizedString(@"This action is not undoable!", @"")];
 		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"")];

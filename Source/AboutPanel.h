@@ -6,6 +6,7 @@
 //
 
 #import <WebKit/WebView.h>
+#import <WebKit/WKWebView.h>
 
 
 @interface AboutPanel : NSObject

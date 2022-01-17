@@ -13,7 +13,7 @@
 
 @implementation AboutPanel {
 	NSPanel *panel;
-	IBOutlet WebView *webView;
+	IBOutlet WKWebView *webView;
 }
 
 - (id)init {
@@ -27,7 +27,7 @@
 		return nil;
 	}
 	NSArray *topLevelObjects = [NSArray array];
-	if (![nib instantiateNibWithOwner:self topLevelObjects:&topLevelObjects]) {
+	if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) {
 		NSLog(@"%@ >> failed instantiating nib!", [self class]);
 		return nil;
 	}
@@ -44,7 +44,7 @@
 		return nil;
 	}
 
-	[webView.mainFrame loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:
 		[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"html"]]]];
 
 	return self;

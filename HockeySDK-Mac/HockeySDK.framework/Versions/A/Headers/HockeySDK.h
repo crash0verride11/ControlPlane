@@ -1,24 +1,24 @@
 #import <Foundation/Foundation.h>
 
-#import "HockeySDKEnums.h"
+#import <HockeySDK/HockeySDKEnums.h>
 
-#import "BITHockeyManager.h"
-#import "BITHockeyManagerDelegate.h"
+#import <HockeySDK/BITHockeyManager.h>
+#import <HockeySDK/BITHockeyManagerDelegate.h>
 
-#import "BITHockeyAttachment.h"
+#import <HockeySDK/BITHockeyAttachment.h>
 
-#import "BITCrashManager.h"
-#import "BITCrashManagerDelegate.h"
-#import "BITCrashDetails.h"
-#import "BITCrashMetaData.h"
-#import "BITCrashExceptionApplication.h"
+#import <HockeySDK/BITCrashManager.h>
+#import <HockeySDK/BITCrashManagerDelegate.h>
+#import <HockeySDK/BITCrashDetails.h>
+#import <HockeySDK/BITCrashMetaData.h>
+#import <HockeySDK/BITCrashExceptionApplication.h>
 
-#import "BITSystemProfile.h"
+#import <HockeySDK/BITSystemProfile.h>
 
-#import "BITFeedbackManager.h"
-#import "BITFeedbackWindowController.h"
+#import <HockeySDK/BITFeedbackManager.h>
+#import <HockeySDK/BITFeedbackWindowController.h>
 
-#import "BITMetricsManager.h"
+#import <HockeySDK/BITMetricsManager.h>
 
 // Notification message which HockeyManager is listening to, to retry requesting updated from the server
 #define BITHockeyNetworkDidBecomeReachableNotification @"BITHockeyNetworkDidBecomeReachable"

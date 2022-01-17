@@ -3,7 +3,7 @@
 @class BITMetricsManager;
 @protocol BITHockeyManagerDelegate;
 
-#import "HockeySDK.h"
+#import <HockeySDK/HockeySDK.h>
 
 /**
  The HockeySDK manager. Responsible for setup and management of all components

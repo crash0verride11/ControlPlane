@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "BITHockeyBaseManager.h"
+#import <HockeySDK/BITHockeyBaseManager.h>
 
 
 // Notification message which tells that loading messages finished

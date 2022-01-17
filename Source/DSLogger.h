@@ -17,7 +17,7 @@
 + (void)logFromFunction:(NSString *)fnName withInfo:(NSString *)info;
 
 - (id)init;
-- (void)dealloc;
+//- (void)dealloc;
 
 - (void)logFromFunction:(NSString *)fnName withInfo:(NSString *)info;
 - (NSString *)buffer;

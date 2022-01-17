@@ -95,7 +95,7 @@
             return nil;
         }
     } else {
-        if (![nib instantiateNibWithOwner:owner topLevelObjects:&topLevelObjects]) {
+        if (![nib instantiateWithOwner:owner topLevelObjects:&topLevelObjects]) {
             NSLog(@"%@ >> failed instantiating nib (named '%@')!", [self class], name);
             return nil;
         }
@@ -219,13 +219,13 @@
 
 - (IBAction)closeSheetWithOK:(id)sender
 {
-	[NSApp endSheet:panel returnCode:NSOKButton];
+    [NSApp endSheet:panel returnCode:NSModalResponseOK];
 	[panel orderOut:nil];
 }
 
 - (IBAction)closeSheetWithCancel:(id)sender
 {
-	[NSApp endSheet:panel returnCode:NSCancelButton];
+    [NSApp endSheet:panel returnCode:NSModalResponseCancel];
 	[panel orderOut:nil];
 }
 
@@ -234,7 +234,7 @@
 {
     NSInvocation *inv = (NSInvocation *) contextInfo;
 
-	if (returnCode == NSOKButton) {
+    if (returnCode == NSModalResponseOK) {
         NSDictionary *dict = [self readFromPanel];
         [inv setArgument:&dict atIndex:2];
         [inv invoke];

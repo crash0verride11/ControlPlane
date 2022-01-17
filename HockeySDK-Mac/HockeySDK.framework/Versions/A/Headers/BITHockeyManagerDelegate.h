@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "BITCrashManagerDelegate.h"
+#import <HockeySDK/BITCrashManagerDelegate.h>
 
 @class BITHockeyManager;
 @class BITHockeyBaseManager;

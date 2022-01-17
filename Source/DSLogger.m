@@ -132,12 +132,6 @@ static DSLogger *sharedLogger = nil;
 	return self;
 }
 
-- (void)dealloc {
-    if (serialQueue) {
-        dispatch_release(serialQueue);
-    }
-}
-
 - (void)logFromFunction:(NSString *)fnName withInfo:(NSString *)info {
     [[self class] logFromFunction:fnName withInfo:info];
 }

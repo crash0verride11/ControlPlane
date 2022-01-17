@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "BITHockeyBaseManager.h"
-#import "HockeySDKNullability.h"
+#import <HockeySDK/BITHockeyBaseManager.h>
+#import <HockeySDK/HockeySDKNullability.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -58,6 +58,7 @@
 #include <sys/stat.h>
 #include <sys/un.h>
 #include <sys/socket.h>
+#include <os/log.h>
 
 // At runtime BAS only requires CoreFoundation.  However, at build time we need 
 // CoreServices for the various OSStatus error codes in "MacErrors.h".  Thus, by default, 
@@ -1097,7 +1098,7 @@ static int HandleConnection(
 {
     int                         retval;
     OSStatus                    junk;
-    int                         junkInt;
+    //int                         junkInt;
     AuthorizationExternalForm	extAuth;
     AuthorizationRef			auth		= NULL;
     CFDictionaryRef				request		= NULL;
@@ -1176,11 +1177,13 @@ static int HandleConnection(
             commandProcStatus = commandProcs[commandIndex](auth, commands[commandIndex].userData, request, response, asl, aslMsg);
 
             if (commandProcStatus == noErr) {
-                junkInt = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Command callback succeeded");
-                assert(junkInt == 0);
+                os_log(OS_LOG_DEFAULT, "Command callback succeeded");
+                //junkInt = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Command callback succeeded");
+                //assert(junkInt == 0);
             } else {
-                junkInt = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Command callback failed: %ld", (long) commandProcStatus);
-                assert(junkInt == 0);
+                os_log(OS_LOG_DEFAULT, "Command callback failed: %ld", (long) commandProcStatus);
+                //junkInt = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Command callback failed: %ld", (long) commandProcStatus);
+                //assert(junkInt == 0);
             }
         }
 
@@ -1233,7 +1236,7 @@ static int HandleConnection(
         // $ sudo launchctl stop com.example.BetterAuthorizationSample
         // $ sudo launchctl setenv BASWaitForDebugger 1
     {
-        int         err;
+        //int         err;
         const char *value;
         
         // asl may be NULL
@@ -1241,8 +1244,9 @@ static int HandleConnection(
         
         value = getenv("BASWaitForDebugger");
         if ( ((value != NULL) && (atoi(value) != 0)) ) {
-            err = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Waiting for debugger");
-            assert(err == 0);
+            os_log(OS_LOG_DEFAULT, "Waiting for debugger");
+            //err = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Waiting for debugger");
+            //assert(err == 0);
             (void) pause();
         }
     }
@@ -1256,7 +1260,7 @@ static int CheckInWithLaunchd(aslclient asl, aslmsg aslMsg, const char **errStrP
     // for logging with ASL.  If the message contains a %m, which 
 	// causes ASL to log errno, errno will be set appropriately.
 {
-    int             err;
+    //int             err;
 	launch_data_t   checkinRequest = NULL;
 	launch_data_t   checkinResponse = NULL;
 	launch_data_t   socketsDict;
@@ -1302,9 +1306,10 @@ static int CheckInWithLaunchd(aslclient asl, aslmsg aslMsg, const char **errStrP
         *errStrPtr = "Could not get socket dictionary from checkin response: Type mismatch";
 		goto done;
 	}
+    #define OS_LOG_DEFAULT
+    #define os_log(log, format, ...)
 	if (launch_data_dict_get_count(socketsDict) > 1) {
-		err = asl_log(asl, aslMsg, ASL_LEVEL_WARNING, "Some sockets in dictionary will be ignored");
-        assert(err == 0);
+		 os_log(OS_LOG_DEFAULT, errno, "Some sockets in array will be ignored");
 	}
 	
 	// Get the dictionary value from the key "MasterSocket", as defined in the launchd 
@@ -1319,9 +1324,9 @@ static int CheckInWithLaunchd(aslclient asl, aslmsg aslMsg, const char **errStrP
         *errStrPtr = "Could not get file descriptor array: Type mismatch";
 		goto done;
 	}
+    
 	if (launch_data_array_get_count(fdArray) > 1) {
-		err = asl_log(asl, aslMsg, ASL_LEVEL_WARNING, "Some sockets in array will be ignored");
-        assert(err == 0);
+        os_log(OS_LOG_DEFAULT, errno, "Some sockets in array will be ignored");
 	}
 	
 	// Get the socket file descriptor from the array.
@@ -1342,8 +1347,8 @@ static int CheckInWithLaunchd(aslclient asl, aslmsg aslMsg, const char **errStrP
     // I'm going to leave it in, disabled, until that problem is resolved.
     
     if (false) {
-        err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Listening descriptor is %d", fd);
-        assert(err == 0);
+        //err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Listening descriptor is %d", fd);
+        //assert(err == 0);
     }
     
 done:
@@ -1410,6 +1415,8 @@ extern int BASHelperToolMain(
 	assert(commands[0].commandName != NULL);        // there must be at least one command
 	assert(commandProcs != NULL);
     assert( CommandArraySizeMatchesCommandProcArraySize(commands, commandProcs) );
+    
+    os_log_t error_log = os_log_create("com.apple.logging.example", "general");
 	
 	// Create a new ASL client object, and a template message for any messages that 
     // we log.  We don't care if these fail because ASL will do the right thing 
@@ -1421,8 +1428,8 @@ extern int BASHelperToolMain(
 	aslMsg = asl_new(ASL_TYPE_MSG);
     assert(aslMsg != NULL);
 
-    err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Starting up");
-    assert(err == 0);
+    os_log(OS_LOG_DEFAULT,  "Starting up");
+    //assert(err == 0);
 
     #if !defined(NDEBUG)
         WaitForDebugger(asl, aslMsg);
@@ -1518,8 +1525,8 @@ extern int BASHelperToolMain(
                 // If the incoming connection just disappeared (perhaps the client 
                 // died before we accepted the connection), don't log that as an error 
                 // and don't quit.
-                err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Connection disappeared before we could accept it: %m");
-                assert(err == 0);
+                os_log(OS_LOG_DEFAULT,"Connection disappeared before we could accept it: %m");
+                 
             } else {
                 // Other errors mean that we're in a very weird state; we respond by 
                 // failing out with an error.
@@ -1532,8 +1539,8 @@ extern int BASHelperToolMain(
         // -1 here.  In that case, we just skip the next step.
 
         if (thisConnection != -1) {
-            err = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Request started");
-            assert(err == 0);
+            os_log(OS_LOG_DEFAULT, "Request started");
+            //assert(err == 0);
             
             // thisConnection inherits its non-blocking setting from listener, but 
             // we want it to be blocking from here on in, so we switch the status.  
@@ -1553,10 +1560,10 @@ extern int BASHelperToolMain(
             assert(err == 0);
 
             if (thisConnectionError == 0) {
-                err = asl_log(asl, aslMsg, ASL_LEVEL_DEBUG, "Request finished");
+                os_log(OS_LOG_DEFAULT, "Request finished");
             } else {
                 errno = thisConnectionError;            // so it can be picked up by %m
-                err = asl_log(asl, aslMsg, ASL_LEVEL_ERR, "Request failed: %m");
+                os_log_error(error_log, "Request failed: %{errno}d", errno);
             }
             assert(err == 0);
         }
@@ -1573,11 +1580,13 @@ done:
     // asl, aslMsg, and kq.
     
     if (errStr != NULL) {
-        err = asl_log(asl, aslMsg, ASL_LEVEL_ERR, "%s", errStr);
-        assert(err == 0);
+        os_log_error(error_log, "%s", errStr);
+        //err = asl_log(asl, aslMsg, ASL_LEVEL_ERR, "%s", errStr);
+        //assert(err == 0);
     }
-    err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Shutting down");
-    assert(err == 0);
+    os_log(OS_LOG_DEFAULT, "Shutting down");
+    //err = asl_log(asl, aslMsg, ASL_LEVEL_INFO, "Shutting down");
+    //assert(err == 0);
     return (errStr == NULL) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

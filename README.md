@@ -1,10 +1,10 @@
-ControlPlane
-============
+ControlPlane -- crashOverride Fork
+==================================
 
-Looking for new maintainer
---------------------------
+**Purpose:** I am not knowledgeable in Objective-C and the purpose of my fork has purely been to remove enough errors to get the project to compile on the latest operating systems. In the process, I've removed several evidence sources that i did not know how to repair. I have made some updates to the preference panes as well to match latest operating systems and to support dark mode (not without a few issues still, but better at least). I'll add a release eventually. Feel free to report issues, but I probably will not be able to address them.
 
-This project is looking for a new maintainer. If this is you please contact me via twitter @dustinrue.
+Original ReadMe
+===============
 
 What is ControlPlane
 --------------------

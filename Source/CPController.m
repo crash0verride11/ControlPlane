@@ -231,7 +231,7 @@ static NSSet *sharedActiveContexts = nil;
             [tintedImage setTemplate:NO];
             [tintedImage lockFocus];
             [[color colorUsingColorSpaceName:NSCalibratedRGBColorSpace] set];
-            NSRectFillUsingOperation((NSRect) {NSZeroPoint, tintedImage.size}, NSCompositeSourceIn);
+            NSRectFillUsingOperation((NSRect) {NSZeroPoint, tintedImage.size}, NSCompositingOperationSourceIn);
             [tintedImage unlockFocus];
             return tintedImage;
         }
@@ -240,13 +240,33 @@ static NSSet *sharedActiveContexts = nil;
     return image;
 }
 
++ (BOOL)isDarkMode {
+    NSAppearance *appearance = NSAppearance.currentAppearance;
+    if (@available(*, macOS 10.14)) {
+        return appearance.name == NSAppearanceNameDarkAqua;
+    }
+
+    return NO;
+}
+
 - (id)init {
 	if (!(self = [super init])) {
 		return nil;
     }
-
-	sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon"] retain];
-    [sbImageTemplate setTemplate:YES];
+    if (@available(macOS 10.14, *)) {
+        //code for detecting and setting alternate Icon
+        NSAppearance *appearance = NSAppearance.currentAppearance;
+        if (appearance.name == NSAppearanceNameDarkAqua) {
+            sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon"] retain];
+            [sbImageTemplate setTemplate:YES];
+        } else {
+            sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon"] retain];
+            [sbImageTemplate setTemplate:YES];
+        }
+    } else {
+        sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon"] retain];
+        [sbImageTemplate setTemplate:YES];
+    }
 
 	sbItem = nil;
 	sbHideTimer = nil;
@@ -821,7 +841,7 @@ static NSSet *sharedActiveContexts = nil;
         NSString *rep = [item representedObject];
         if (rep && [contextsDataSource contextByUUID:rep]) {
             BOOL ticked = ([rep isEqualToString:self.currentContext.uuid]);
-            [item setState:(ticked ? NSOnState : NSOffState)];
+            [item setState:(ticked ? NSControlStateValueOn : NSControlStateValueOff)];
         }
     }
 }
@@ -1383,7 +1403,7 @@ static NSSet *sharedActiveContexts = nil;
 
 	// Selecting any context in the force-context menu deselects the 'stick forced contexts' item,
 	// so we force it to be correct here.
-	int state = forcedContextIsSticky ? NSOnState : NSOffState;
+    int state = forcedContextIsSticky ? NSControlStateValueOn : NSControlStateValueOff;
     [self.stickForcedContextMenuItem setState:state];
 
     [self increaseActionsInProgress];
@@ -1414,7 +1434,7 @@ static NSSet *sharedActiveContexts = nil;
 	BOOL oldValue = forcedContextIsSticky;
 	forcedContextIsSticky = !oldValue;
 
-  	[sender setState:(forcedContextIsSticky ? NSOnState : NSOffState)];
+    [sender setState:(forcedContextIsSticky ? NSControlStateValueOn : NSControlStateValueOff)];
 
     if (!forcedContextIsSticky) {
         [self setForceOneFullUpdate:YES];

@@ -30,6 +30,7 @@
 
 - (ContextsDataSource *)contextsDataSource;
 - (BOOL)stickyContext;
++ (BOOL)isDarkMode;
 
 - (void)forceSwitch: (id) sender;
 - (IBAction)toggleSticky: (id) sender;

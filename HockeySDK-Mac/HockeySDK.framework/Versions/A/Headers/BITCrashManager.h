@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "BITHockeyBaseManager.h"
+#import <HockeySDK/BITHockeyBaseManager.h>
 
 // flags if the crashreporter is activated at all
 // set this as bool in user defaults e.g. in the settings, if you want to let the user be able to deactivate it

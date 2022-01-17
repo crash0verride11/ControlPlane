@@ -60,6 +60,7 @@ struct WirelessInfo
 	UInt8	macAddress[6]; /* MAC address of wireless access point. */
 	SInt8	name[34];      /* Name of current (or wanted?) network. */
 };
+
 typedef struct WirelessInfo WirelessInfo;
 /*
 	I'm not sure what most of the values in the WirelessInfo structure

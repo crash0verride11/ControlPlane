@@ -13,6 +13,9 @@
 #import <CoreServices/CoreServices.h>
 #import <syslog.h>
 
+#include <CoreFoundation/CoreFoundation.h>
+
+
 #import "AuthorizationLib/BetterAuthorizationSampleLib.h"
 #import "CPHelperToolCommon.h"
 
@@ -160,14 +163,9 @@ static OSStatus DoEnableTM (AuthorizationRef		auth,
 	
 	char command[256];
 	int retValue = 0;
-	
-	// get system version
-	SInt32 major = 0, minor = 0;
-	Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-	
+	    
 	// if Lion or greater
-	if ((major == 10 && minor >= 7) || major >= 11) {
+    if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_7) {
 		sprintf(command,"/usr/bin/tmutil enable");
 		retValue = system(command);
 		
@@ -202,14 +200,9 @@ static OSStatus DoDisableTM (AuthorizationRef		auth,
 	
 	char command[256];
 	int retValue = 0;
-	
-	// get system version
-	SInt32 major = 0, minor = 0;
-	Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-	
+        
 	// if Lion or greater
-	if ((major == 10 && minor >= 7) || major >= 11) {
+	if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_7) {
 		sprintf(command,"/usr/bin/tmutil disable");
 		retValue = system(command);
 		
@@ -245,13 +238,7 @@ static OSStatus DoStartBackupTM (AuthorizationRef		auth,
 	char command[256];
 	int retValue = 0;
 	
-	// get system version
-	SInt32 major = 0, minor = 0;
-	Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-	
-	// if Lion or greater
-	if ((major == 10 && minor >= 7) || major >= 11) {
+    if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_7) {
 		sprintf(command,"/usr/bin/tmutil startbackup");
 		retValue = system(command);
 	} else {	// Snow leopard
@@ -277,13 +264,7 @@ static OSStatus DoStopBackupTM (AuthorizationRef		auth,
 	char command[256];
 	int retValue = 0;
 	
-	// get system version
-	SInt32 major = 0, minor = 0;
-	Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-	
-	// if Lion or greater
-	if ((major == 10 && minor >= 7) || major >= 11) {
+    if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_7) {
 		sprintf(command,"/usr/bin/tmutil stopbackup");
 		retValue = system(command);
 	} else {	// Snow leopard
@@ -521,13 +502,7 @@ static OSStatus DoEnableSMBFileSharing (AuthorizationRef         auth,
 	int retValue = 0;
     
     
-    // get system version
-    SInt32 major = 0, minor = 0;
-    Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-    
-    
-    if ((major == 10 && minor >= 9) || major >= 11) {
+    if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_9) {
         sprintf(enable_command, "/bin/launchctl load -F /System/Library/LaunchDaemons/%s.plist", kCPHelperToolSMBDServiceName);
         sprintf(sync_command, "%s", kCPHelperToolSMBSyncToolFilePathMavericks);
     }
@@ -560,13 +535,7 @@ static OSStatus DoDisableSMBFileSharing (AuthorizationRef         auth,
     int retValue = 0;
     
     
-    // get system version
-    SInt32 major = 0, minor = 0;
-    Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-    
-    
-    if ((major == 10 && minor >= 9) || major >= 11) {
+    if (floor(kCFCoreFoundationVersionNumber) > kCFCoreFoundationVersionNumber10_9) {
         sprintf(disable_command, "/bin/launchctl unload -F /System/Library/LaunchDaemons/%s.plist", kCPHelperToolSMBDServiceName);
         sprintf(sync_command, "%s", kCPHelperToolSMBSyncToolFilePathMavericks);
     }

@@ -50,6 +50,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <Security/Security.h>
 #include <asl.h>
+#include <os/log.h>
 
 #ifdef __cplusplus
 extern "C" {
