@@ -149,11 +149,11 @@ static NSTimer *hideToolTipTimer;
 
 	BOOL draw = NO;
     if ((eventType == NSEventTypeLeftMouseDown) && (sharedToolTip == nil)) {
-		draw = YES;
+		draw = NO; //Set to NO to prevent pup-ups
     } else if ((eventType == NSEventTypeLeftMouseUp) && (sharedToolTip != nil)) {
 		draw = NO;
     } else if (sharedToolTip != nil) {
-		draw = YES;
+		draw = NO; //Set to NO to prevent pup-ups
     }
 
 	if (draw) {

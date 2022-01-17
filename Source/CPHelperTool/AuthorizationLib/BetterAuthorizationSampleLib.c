@@ -416,7 +416,7 @@ static int BASReadDictionary(int fdIn, CFDictionaryRef *dictPtr)
 		}
 	}
 	if (err == 0) {
-		dict = CFPropertyListCreateFromXMLData(NULL, dictData, kCFPropertyListImmutable, NULL);
+		dict = CFPropertyListCreateWithData(NULL, dictData, kCFPropertyListImmutable, NULL, NULL);
 		if (dict == NULL) {
 			err = BASOSStatusToErrno( coreFoundationUnknownErr );
 		}
