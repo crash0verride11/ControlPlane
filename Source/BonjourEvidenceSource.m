@@ -74,6 +74,9 @@
 	return self;
 }
 
+- (void)dealloc {
+ }
+
 - (NSString *)name {
 	return @"Bonjour";
 }

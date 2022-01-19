@@ -187,6 +187,7 @@
 		DDFF423114156B0A0047D311 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = DDFF423014156B0A0047D311 /* location.png */; };
 		EF18B37422E3F1C0002949CF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF18B37322E3F1C0002949CF /* WebKit.framework */; };
 		EFB4751523F8BDC70019A373 /* CoreLocationRule.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFB4751323F8BDC70019A373 /* CoreLocationRule.xib */; };
+		EFB687A6279767CA00BBAA65 /* cp-icon-w.icns in Resources */ = {isa = PBXBuildFile; fileRef = EFB687A3279767CA00BBAA65 /* cp-icon-w.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -655,6 +656,7 @@
 		EF8A1D13210C110000D99A2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HostAvailability.xib; sourceTree = "<group>"; };
 		EF8A1D14210C110000D99A2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TimeOfDayRule.xib; sourceTree = "<group>"; };
 		EFB4751423F8BDC70019A373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CoreLocationRule.xib; sourceTree = "<group>"; };
+		EFB687A3279767CA00BBAA65 /* cp-icon-w.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "cp-icon-w.icns"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -830,6 +832,7 @@
 				DA83A21E13D12A3200074503 /* cp-icon-active.icns */,
 				DA83A22013D13C8300074503 /* cp-icon-inactive.icns */,
 				DA83A22213D13DF300074503 /* cp-icon.icns */,
+				EFB687A3279767CA00BBAA65 /* cp-icon-w.icns */,
 				DA4A629413E25C9D00CE976F /* Credits.html */,
 				DA16392513D4B14A00E3F421 /* dsa_pub.pem */,
 				8D3A3D5E0C012564008EBF2A /* EvidenceSourcesPrefs.png */,
@@ -1364,6 +1367,7 @@
 				8D88FE2A0C534737007A14D6 /* pause.png in Resources */,
 				8DC410FB0C64665E00393759 /* AboutPanel.xib in Resources */,
 				DA83A22313D13DF300074503 /* cp-icon.icns in Resources */,
+				EFB687A6279767CA00BBAA65 /* cp-icon-w.icns in Resources */,
 				DA83A22713D1430000074503 /* usb-vendors.txt in Resources */,
 				DA4A629313E2546800CE976F /* ControlPlane Help in Resources */,
 				DDE1B068140438DB006564A6 /* ControlPlane.sdef in Resources */,
@@ -1792,6 +1796,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dustinrue.${PRODUCT_NAME:rfc1034identifier}";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
+				VALID_ARCHS = "arm64 arm64e x86_64";
 			};
 			name = Debug;
 		};
@@ -1822,7 +1827,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = YES;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

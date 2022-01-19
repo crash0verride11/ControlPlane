@@ -98,7 +98,7 @@
                 <menuItem isSeparatorItem="YES" title=" " id="528">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="Original ControlPlane Website..." id="1690">
+                <menuItem title="ControlPlane Fork GitHub" id="1690">
                     <connections>
                         <action selector="runWebPage:" target="320" id="1692"/>
                     </connections>
@@ -183,7 +183,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="1917">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" usesAppearanceFont="YES"/>
                         <menu key="menu" title="OtherViews" id="1918">
                             <items>
                                 <menuItem title="icon" id="1921"/>
@@ -267,7 +267,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="*Item1*" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="941" id="1843">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" usesAppearanceFont="YES"/>
                         <menu key="menu" title="OtherViews" id="939">
                             <items>
                                 <menuItem title="*Item1*" state="on" id="941"/>
@@ -536,7 +536,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <popUpButtonCell key="cell" type="push" title="*Item1*" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="1668" id="1862">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" usesAppearanceFont="YES"/>
                         <menu key="menu" title="OtherViews" id="1666">
                             <items>
                                 <menuItem title="*Item1*" state="on" id="1668"/>
@@ -853,7 +853,7 @@ IA
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="451" y="342" width="500" height="323"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
             <value key="minSize" type="size" width="243" height="167"/>
             <view key="contentView" id="911">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="323"/>
@@ -1118,7 +1118,7 @@ IA
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="459" y="547" width="273" height="189"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="1589">
                 <rect key="frame" x="0.0" y="0.0" width="273" height="189"/>
@@ -1154,7 +1154,7 @@ IA
                         <autoresizingMask key="autoresizingMask"/>
                         <popUpButtonCell key="cell" type="push" title="*Item1*" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="1596" id="1873">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" usesAppearanceFont="YES"/>
                             <menu key="menu" title="OtherViews" id="1594">
                                 <items>
                                     <menuItem title="*Item1*" state="on" id="1596"/>
@@ -1195,7 +1195,7 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <popUpButtonCell key="cell" type="push" title="*Arrival*" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="1616" id="1876">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" usesAppearanceFont="YES"/>
                             <menu key="menu" title="OtherViews" id="1613">
                                 <items>
                                     <menuItem title="*Arrival*" state="on" id="1616"/>
@@ -1342,7 +1342,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="469" y="551" width="270" height="181"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="1680">
                 <rect key="frame" x="0.0" y="0.0" width="270" height="181"/>
@@ -1596,7 +1596,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="575" y="510" width="692" height="344"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1440"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1080"/>
             <view key="contentView" id="01W-7E-uRY">
                 <rect key="frame" x="0.0" y="0.0" width="692" height="344"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1659,9 +1659,9 @@ DQ
     </objects>
     <resources>
         <image name="NSActionTemplate" width="15" height="15"/>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="NSAddTemplate" width="15" height="13"/>
+        <image name="NSRemoveTemplate" width="15" height="4"/>
         <image name="NSSmartBadgeTemplate" width="14" height="14"/>
-        <image name="pause" catalog="system" width="9" height="13"/>
+        <image name="pause" catalog="system" width="10" height="13"/>
     </resources>
 </document>

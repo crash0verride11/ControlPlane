@@ -220,6 +220,7 @@ static NSSet *sharedActiveContexts = nil;
 }
 
 - (void) interfaceThemeDidChange {
+    [self updateMenuBarImage];
     //[self changeActiveIconImageColorTo:self.currentContext.iconColor];
     //[self changeInActiveIconImageColorTo:[[NSColor darkGrayColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
 }
@@ -725,22 +726,66 @@ static NSSet *sharedActiveContexts = nil;
         __block NSColor *iconColor = nil;
         
         const BOOL usingMultipleActiveContexts = [self useMultipleActiveContexts];
-        if (usingMultipleActiveContexts && ([self.activeContexts count] > 0)) {
-            [self.activeContexts enumerateObjectsUsingBlock:^(Context *context, BOOL *stop) {
-                NSColor *contextIconColor = context.iconColor;
-                if (iconColor == nil) {
-                    iconColor = contextIconColor;
-                } else if ((contextIconColor.alphaComponent > 0.0) && ![contextIconColor isEqualTo:iconColor]) {
-                    iconColor = nil;
-                    *stop = YES;
+        //Menubar Icon
+        if (@available(macOS 10.14, *)) {
+            //code for detecting and setting alternate Icon
+            NSAppearance *appearance = NSAppearance.currentAppearance;
+            if (appearance.name == NSAppearanceNameDarkAqua) {
+                //sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon-w"] retain];
+                //[sbImageTemplate setTemplate:YES];
+                if (usingMultipleActiveContexts && ([self.activeContexts count] > 0)) {
+                    [self.activeContexts enumerateObjectsUsingBlock:^(Context *context, BOOL *stop) {
+                        NSColor *contextIconColor = context.iconColor;
+                        if (iconColor == nil) {
+                            iconColor = [NSColor whiteColor];
+                            //iconColor = contextIconColor;
+                        } else if ((contextIconColor.alphaComponent > 0.0) && ![contextIconColor isEqualTo:iconColor]) {
+                            //iconColor = nil;
+                            iconColor = [NSColor whiteColor];
+                            *stop = YES;
+                        }
+                    }];
+                } else if (!usingMultipleActiveContexts && (self.currentContext != nil)) {
+                    //iconColor = self.currentContext.iconColor;
+                    iconColor = [NSColor whiteColor];
+                } else {
+                    iconColor = [NSColor lightGrayColor]; // inactive icon color
                 }
-            }];
-        } else if (!usingMultipleActiveContexts && (self.currentContext != nil)) {
-            iconColor = self.currentContext.iconColor;
-        } else {
-            iconColor = [NSColor darkGrayColor]; // inactive icon color
+            } else {
+                if (usingMultipleActiveContexts && ([self.activeContexts count] > 0)) {
+                    [self.activeContexts enumerateObjectsUsingBlock:^(Context *context, BOOL *stop) {
+                        NSColor *contextIconColor = context.iconColor;
+                        if (iconColor == nil) {
+                            iconColor = [NSColor blackColor];
+                            //iconColor = contextIconColor;
+                        } else if ((contextIconColor.alphaComponent > 0.0) && ![contextIconColor isEqualTo:iconColor]) {
+                            iconColor = [NSColor blackColor];
+                            *stop = YES;
+                        }
+                    }];
+                } else if (!usingMultipleActiveContexts && (self.currentContext != nil)) {
+                    //iconColor = self.currentContext.iconColor;
+                    iconColor = [NSColor blackColor];
+                } else { iconColor = [NSColor darkGrayColor]; // inactive icon color
+                }
+            }
+        } else { //if below 10.14
+            if (usingMultipleActiveContexts && ([self.activeContexts count] > 0)) {
+                [self.activeContexts enumerateObjectsUsingBlock:^(Context *context, BOOL *stop) {
+                    NSColor *contextIconColor = context.iconColor;
+                    if (iconColor == nil) {
+                        iconColor = contextIconColor;
+                    } else if ((contextIconColor.alphaComponent > 0.0) && ![contextIconColor isEqualTo:iconColor]) {
+                        iconColor = nil;
+                        *stop = YES;
+                    }
+                }];
+            } else if (!usingMultipleActiveContexts && (self.currentContext != nil)) {
+                iconColor = self.currentContext.iconColor;
+            } else {
+                iconColor = [NSColor darkGrayColor]; // inactive icon color
+            }
         }
-        
         barImage = [self tintedIconImage:sbImageTemplate withTint:iconColor];
     }
     
@@ -755,7 +800,9 @@ static NSSet *sharedActiveContexts = nil;
     }
     
     @try {
-        [sbItem setImage:image];
+        //sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon"] retain];
+        //[sbImageTemplate setTemplate:YES];
+        [sbItem setImage:image]; //Change Area
     }
     @catch (NSException *exception) {
         DSLog(@"failed to set the menubar icon to %@ with error %@. Please alert ControlPlane Developers!",
@@ -866,7 +913,7 @@ static NSSet *sharedActiveContexts = nil;
         
 		item = [[item copy] autorelease];
 		[item setTitle:[NSString stringWithFormat:@"%@ (*)", [item title]]];
-		[item setKeyEquivalentModifierMask:NSAlternateKeyMask];
+        [item setKeyEquivalentModifierMask:NSEventModifierFlagOption];
 		[item setAlternate:YES];
 		[item setAction:@selector(forceSwitchAndToggleSticky:)];
 		[submenu addItem:item];

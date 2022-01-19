@@ -56,7 +56,7 @@
 
     NSData *colorData = dict[@"iconColor"];
     if (colorData != nil) {
-        _iconColor = [(NSColor *) [NSUnarchiver unarchiveObjectWithData:colorData] copy];
+        _iconColor = [(NSColor *) [NSKeyedUnarchiver unarchiveObjectWithData:colorData] copy];
     }
 
 	return self;
@@ -83,7 +83,7 @@
         return @{ @"uuid": self.uuid, @"parent": self.parentUUID, @"name": self.name };
     }
 
-    NSData *colorData = [NSArchiver archivedDataWithRootObject:(_iconColor)];
+    NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:(_iconColor)];
     return @{ @"uuid": self.uuid, @"parent": self.parentUUID, @"name": self.name, @"iconColor": colorData };
 }
 
@@ -437,7 +437,7 @@ static NSString *MovedRowsType = @"MOVED_ROWS_TYPE";
         [[NSNotificationCenter defaultCenter] postNotificationName:@"iconColorPreviewFinished" object:nil];
     }
     
-	if (returnCode != NSOKButton) {
+    if (returnCode != NSModalResponseOK) {
 		return;
     }
     

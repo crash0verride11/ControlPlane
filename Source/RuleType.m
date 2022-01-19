@@ -25,7 +25,7 @@
     NSAlert *alert = [NSAlert new];
     [alert setMessageText:msg];
     [alert setInformativeText:infoText];
-    [alert runModal];
+    [self performSelectorOnMainThread:@selector(runModal) withObject:alert waitUntilDone:false];
 }
 
 + (void)alertOnInvalidParamValueWith:(NSString *)msg
