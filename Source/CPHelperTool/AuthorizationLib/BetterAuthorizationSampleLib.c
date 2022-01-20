@@ -1422,11 +1422,10 @@ extern int BASHelperToolMain(
     // we log.  We don't care if these fail because ASL will do the right thing 
     // if you pass it NULL (that is, nothing).
     
-	asl     = asl_open(NULL, "HelperTools", ASL_OPT_STDERR);
-    assert(asl != NULL);
-    
-	aslMsg = asl_new(ASL_TYPE_MSG);
-    assert(aslMsg != NULL);
+	//asl     = asl_open(NULL, "HelperTools", ASL_OPT_STDERR);
+    //assert(asl != NULL);
+	//aslMsg = asl_new(ASL_TYPE_MSG);
+    //assert(aslMsg != NULL);
 
     os_log(OS_LOG_DEFAULT,  "Starting up");
     //assert(err == 0);
