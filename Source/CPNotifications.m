@@ -8,15 +8,14 @@
 //
 
 #import "CPNotifications.h"
-#import <Growl/Growl.h>
 
 @implementation CPNotifications
 
 + (void)postUserNotification:(NSString *)title withMessage:(NSString *)message
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableGrowl"]) {
-        [CPNotifications postNotification:[title copy] withMessage:[message copy]];
-    }
+    //if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableGrowl"]) {
+    //    [CPNotifications postNotification:[title copy] withMessage:[message copy]];
+    //}
 }
 
 + (void)postNotification:(NSString *)title withMessage:(NSString *)message
@@ -31,23 +30,6 @@
         NSUserNotificationCenter *unc = [NSUserNotificationCenter defaultUserNotificationCenter];
         
         [unc scheduleNotification:notificationMessage];
-    } else {
-        // use Growl otherwise
-        signed int pri = [title isEqualToString:@"Failure"] ? (1) : (0);
-    
-        @try {
-            [GrowlApplicationBridge notifyWithTitle:title
-                                        description:message
-                                   notificationName:title
-                                           iconData:nil
-                                           priority:pri
-                                           isSticky:NO
-                                       clickContext:nil];
-        }
-        @catch (NSException *exception) {
-            // something went wrong and we're going to simply throw the message away
-            NSLog(@"derp %@", exception);
-        }
     }
 }
 

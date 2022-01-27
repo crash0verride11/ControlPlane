@@ -45,7 +45,7 @@ static void onPMrootDomainChange(void *refcon, io_service_t service, uint32_t me
 + (LaptopLidStateType)isLidClosed {
     LaptopLidStateType isClosed = LaptopLidStateIsUnavailable;
 
-    io_registry_entry_t rootDomain = IORegistryEntryFromPath(kIOMasterPortDefault,
+    io_registry_entry_t rootDomain = IORegistryEntryFromPath(kIOMainPortDefault,
                                                              kIOPowerPlane ":/IOPowerConnection/IOPMrootDomain");
 
     if (rootDomain != MACH_PORT_NULL) {
@@ -103,13 +103,13 @@ static void onPMrootDomainChange(void *refcon, io_service_t service, uint32_t me
     }
     dispatch_set_target_queue(serialQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
 
-    notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
+    notifyPort = IONotificationPortCreate(kIOMainPortDefault);
     if (!notifyPort) {
         return NO;
     }
     IONotificationPortSetDispatchQueue(notifyPort, serialQueue);
 
-    io_service_t pmRootDomain = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOPMrootDomain"));
+    io_service_t pmRootDomain = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOPMrootDomain"));
     if (!pmRootDomain) {
         return NO;
     }

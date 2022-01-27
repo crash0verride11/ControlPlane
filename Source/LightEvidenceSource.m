@@ -60,7 +60,7 @@ enum {
 - (BOOL)openAppleLMUController {
     // Find the IO service
     kern_return_t kr = KERN_FAILURE;
-    io_service_t serviceObject = IOServiceGetMatchingService(kIOMasterPortDefault,
+    io_service_t serviceObject = IOServiceGetMatchingService(kIOMainPortDefault,
                                                              IOServiceMatching("AppleLMUController"));
     if (serviceObject) {
         // Open the IO service

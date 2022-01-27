@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -88,13 +87,6 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24" customClass="SliderWithValue">
-                        <rect key="frame" x="105" y="101" width="132" height="21"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.69999999999999996" tickMarkPosition="above" sliderType="linear" id="25">
-                            <font key="font" usesAppearanceFont="YES"/>
-                        </sliderCell>
-                    </slider>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="34">
                         <rect key="frame" x="245" y="104" width="59" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -198,6 +190,13 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24" customClass="SliderWithValue">
+                        <rect key="frame" x="105" y="100" width="132" height="21"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <sliderCell key="cell" alignment="left" maxValue="1" doubleValue="0.69999999999999996" tickMarkPosition="above" sliderType="linear" id="25">
+                            <font key="font" usesAppearanceFont="YES"/>
+                        </sliderCell>
+                    </slider>
                 </subviews>
             </view>
             <point key="canvasLocation" x="139.5" y="147"/>

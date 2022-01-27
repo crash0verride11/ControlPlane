@@ -205,7 +205,7 @@ static void devRemoved(void *ref, io_iterator_t iterator)
 
 	// Create matching dictionary for I/O Kit enumeration
 	CFMutableDictionaryRef matchDict = IOServiceMatching(kIOUSBDeviceClassName);
-	kr = IOServiceGetMatchingServices(kIOMasterPortDefault, matchDict, &iterator);
+    kr = IOServiceGetMatchingServices(kIOMainPortDefault, matchDict, &iterator);
 	if (paranoid && (kr != KERN_SUCCESS))
 		NSLog(@"USB enumerateAll >> IOServiceGetMatchingServices returned %d", kr);
 
@@ -232,9 +232,9 @@ static void devRemoved(void *ref, io_iterator_t iterator)
     CFMutableDictionaryRef xhci = IOServiceMatching("AppleUSBXHCI");
     
     
-	IOServiceGetMatchingServices(kIOMasterPortDefault, ohci, &ohci_iterator);
-  	IOServiceGetMatchingServices(kIOMasterPortDefault, ehci, &ehci_iterator);
-  	IOServiceGetMatchingServices(kIOMasterPortDefault, xhci, &xhci_iterator);
+    IOServiceGetMatchingServices(kIOMainPortDefault, ohci, &ohci_iterator);
+    IOServiceGetMatchingServices(kIOMainPortDefault, ehci, &ehci_iterator);
+    IOServiceGetMatchingServices(kIOMainPortDefault, xhci, &xhci_iterator);
     
     // assume that if we have a valid iterator then
     // we found a USB controller
@@ -295,7 +295,7 @@ static void devRemoved(void *ref, io_iterator_t iterator)
 	if (paranoid)
 		NSLog(@"USB Paranoia enabled.");
 
-	notificationPort = IONotificationPortCreate(kIOMasterPortDefault);
+    notificationPort = IONotificationPortCreate(kIOMainPortDefault);
 	runLoopSource = IONotificationPortGetRunLoopSource(notificationPort);
 	CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
 	

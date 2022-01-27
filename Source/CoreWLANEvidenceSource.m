@@ -347,7 +347,6 @@ static void linkDataChanged(SCDynamicStoreRef store, CFArrayRef changedKeys, voi
 - (void)stopUpdateLoop:(BOOL)forceUpdate {
     if (pollingTimer) {
         dispatch_source_cancel(pollingTimer);
-        dispatch_release(pollingTimer);
         pollingTimer = NULL;
 
         if (forceUpdate) {

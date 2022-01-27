@@ -15,8 +15,8 @@
 #import "CPNotifications.h"
 #import "SharedNumberFormatter.h"
 #import <libkern/OSAtomic.h>
-#import <HockeySDK/HockeySDK.h>
-
+//#import <HockeySDK/HockeySDK.h>
+//#import <ControlPlane-Swift.h>
 
 
 #pragma mark -
@@ -145,7 +145,6 @@ static NSSet *sharedActiveContexts = nil;
 	[appDefaults setValue:[NSNumber numberWithDouble:0.75] forKey:@"MinimumConfidenceRequired"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"EnableSwitchSmoothing"];
 	[appDefaults setValue:[NSNumber numberWithBool:NO] forKey:@"HideStatusBarIcon"];
-    [appDefaults setValue:[NSNumber numberWithBool:YES] forKey:@"EnableGrowl"];
     [appDefaults setValue:[NSNumber numberWithInt:CP_DISPLAY_ICON] forKey:@"menuBarOption"];
 
     
@@ -351,12 +350,12 @@ static NSSet *sharedActiveContexts = nil;
 	return forcedContextIsSticky;
 }
 
-- (void) applicationDidFinishLaunching:(NSNotification *)notification {
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"fe18dcf4b5fd47a0bf75e0b49321ea93"];
-    // Do some additional configuration if needed here
-    [[BITHockeyManager sharedHockeyManager] startManager];
-
-}
+//Remove Hockey
+//- (void) applicationDidFinishLaunching:(NSNotification *)notification {
+//    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"fe18dcf4b5fd47a0bf75e0b49321ea93"];
+//    // Do some additional configuration if needed here
+//    [[BITHockeyManager sharedHockeyManager] startManager];
+//}
 
 - (void)importVersion1Settings {
 	CFStringRef oldDomain = CFSTR("au.id.symonds.MarcoPolo");
@@ -710,7 +709,8 @@ static NSSet *sharedActiveContexts = nil;
     if (userInfo != nil) {
         NSColor *color = userInfo[@"color"];
         NSImage *barImage = [self tintedIconImage:sbImageTemplate withTint:color];
-        [self setMenuBarImage:barImage];
+        //[self setMenuBarImage:barImage];
+        [self updateMenuBarImage];
     } else {
         [self updateMenuBarImage];
     }
@@ -729,7 +729,7 @@ static NSSet *sharedActiveContexts = nil;
         //Menubar Icon
         if (@available(macOS 10.14, *)) {
             //code for detecting and setting alternate Icon
-            NSAppearance *appearance = NSAppearance.currentAppearance;
+            NSAppearance *appearance = NSAppearance.currentDrawingAppearance;
             if (appearance.name == NSAppearanceNameDarkAqua) {
                 //sbImageTemplate = [[self prepareImageForMenubar:@"cp-icon-w"] retain];
                 //[sbImageTemplate setTemplate:YES];
@@ -1400,11 +1400,6 @@ static NSSet *sharedActiveContexts = nil;
 }
 
 - (void)postNotificationsOnContextTransitionWhenForcedByUserIs:(BOOL)isManuallyTriggered {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"EnableGrowl"]) {
-        NSString *msg = [self getMesssageForChangingToContextWhenForcedByUserIs:isManuallyTriggered];
-        [CPNotifications postUserNotification:NSLocalizedString(@"Activating Context", @"Growl message title")
-                                  withMessage:msg];
-    }
     
     // Notify subscribed apps
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];

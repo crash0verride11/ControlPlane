@@ -39,3 +39,6 @@ oui.txt
 usb-vendors.txt
 Resources/oui.txt
 Resources/usb-vendors.txt
+
+#Tests
+Swift/DarkModeCheck.swift
